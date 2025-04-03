@@ -15,19 +15,27 @@ public class KeyIndexedSort {
         if (n <= 1) return;
 
         String[] aux = new String[n];
-        int[] count = new int[R + 2];  // +2 to handle -1 (end-of-string)
+        int[] count = new int[R + 2];  // +2 to handle -1 (end-of-string case)
 
-        // Student TODO:
         // 1. Compute frequency counts
-       
+        for (String s : a) {
+            count[charAt(s, d) + 2]++;
+        }
+
         // 2. Transform counts to indices
-       
+        for (int r = 0; r < R + 1; r++) {
+            count[r + 1] += count[r];
+        }
+
         // 3. Distribute to auxiliary array
-        
+        for (String s : a) {
+            aux[count[charAt(s, d) + 1]++] = s;
+        }
+
         // 4. Copy back to original array
-
-
+        System.arraycopy(aux, 0, a, 0, n);
     }
+
 
     // Get d-th character or -1 if out of bounds
     private static int charAt(String s, int d) {
